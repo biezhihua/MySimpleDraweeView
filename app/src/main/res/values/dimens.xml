@@ -1,0 +1,8 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="text_size_16">10sp</dimen>
+    <dimen name="status_bar_height">25dp</dimen>
+    <dimen name="theme_photo_height">256dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+</resources>

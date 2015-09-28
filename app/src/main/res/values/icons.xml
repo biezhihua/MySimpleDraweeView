@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="fa_icon_fa_battery_empty">&#xf244;</string>
+    <string name="fa_icon_fa_battery_quarter">&#xf243;</string>
+    <string name="fa_icon_fa_battery_half">&#xf242;</string>
+    <string name="fa_icon_fa_battery_three_quarters">&#xf241;</string>
+    <string name="fa_icon_fa_battery_full">&#xf240;</string>
+
+</resources>

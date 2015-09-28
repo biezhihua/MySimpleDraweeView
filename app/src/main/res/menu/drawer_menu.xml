@@ -1,0 +1,37 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/menu_group_1">
+        <item
+            android:id="@+id/menu_1"
+            android:icon="@mipmap/ic_global_menu_feed"
+            android:title="一句话搞定图片显示" />
+        <item
+            android:id="@+id/menu_2"
+            android:icon="@mipmap/ic_global_menu_direct"
+            android:title="Instagram Direct" />
+        <item
+            android:id="@+id/menu_3"
+            android:icon="@mipmap/ic_global_menu_news"
+            android:title="News" />
+        <item
+            android:id="@+id/menu_4"
+            android:icon="@mipmap/ic_global_menu_popular"
+            android:title="Popular" />
+        <item
+            android:id="@+id/menu_5"
+            android:icon="@mipmap/ic_global_menu_nearby"
+            android:title="Photos Nearby" />
+        <item
+            android:id="@+id/menu_6"
+            android:icon="@mipmap/ic_global_menu_likes"
+            android:title="Photos You've Liked" />
+
+    </group>
+    <group android:id="@+id/menu_group_2">
+        <item
+            android:id="@+id/menu_settings"
+            android:title="Settings" />
+        <item
+            android:id="@+id/menu_about"
+            android:title="About" />
+    </group>
+</menu>

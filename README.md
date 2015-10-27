@@ -15,6 +15,11 @@
 
 6. Fresco结合PhotoView使用，并可以使用SimpleDraweeView加载进度属性。
 
+
+**加载进度**
+
 ![](https://github.com/biezhihua/MySimpleDraweeView/raw/master/resource/2.gif)
 
+
+**延迟加载**
 ![](https://github.com/biezhihua/MySimpleDraweeView/raw/master/resource/1.gif)

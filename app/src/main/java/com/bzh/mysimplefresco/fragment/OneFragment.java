@@ -66,7 +66,6 @@ public class OneFragment extends BaseFragment {
 
         initToolbar();
 
-
         photo_1.setWidthAndHeight(1024, 768);
         photo_1.setAutoPlayAnimations(true);
         photo_1.setGifChartIdentify(true);

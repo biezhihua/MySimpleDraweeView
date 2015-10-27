@@ -361,6 +361,9 @@ public class PhotoView extends ImageView implements IPhotoView {
     }
 
     public void setImageUri(String url) {
+
+        setImageDrawable(mDraweeHolder.getTopLevelDrawable());
+
         ImageRequest imageRequest = ImageRequestBuilder.newBuilderWithSource(Uri.parse(url))
                 .setResizeOptions(new ResizeOptions(Utils.getScreenWidth(getContext()), Utils.getScreenHeight(getContext()) * 2))
                 .setAutoRotateEnabled(true)

@@ -14,3 +14,5 @@
 5. 使用后处理器对下载完成后的图片进行处理-截取/缩放。
 
 6. Fresco结合PhotoView使用，并可以使用SimpleDraweeView加载进度属性。
+
+![](https://github.com/biezhihua/MySimpleDraweeView/raw/master/resource/1.gif)

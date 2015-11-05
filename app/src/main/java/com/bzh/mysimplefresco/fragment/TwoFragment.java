@@ -1,5 +1,6 @@
 package com.bzh.mysimplefresco.fragment;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.bzh.mysimplefresco.R;
 import com.bzh.mysimplefresco.activity.BaseActivity;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +31,8 @@ public class TwoFragment extends BaseFragment {
     Toolbar toolbar;
     @Bind(R.id.fab)
     FloatingActionButton fab;
+    @Bind(R.id.draweeView)
+    SimpleDraweeView draweeView;
 
     public static TwoFragment newInstance() {
         TwoFragment fragment = new TwoFragment();
@@ -47,6 +51,11 @@ public class TwoFragment extends BaseFragment {
         super.layoutInit(inflater, savedInstanceState);
         ButterKnife.bind(this, getRootView());
         initToolbar();
+
+        if (savedInstanceState == null) {
+            draweeView.setAspectRatio(1F);
+            draweeView.setImageURI(Uri.parse("http://img5.duitang.com/uploads/item/201511/04/20151104214718_FfnST.jpeg"));
+        }
     }
 
     private void initToolbar() {
@@ -70,5 +79,13 @@ public class TwoFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(getRootView());
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
     }
 }

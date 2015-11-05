@@ -63,21 +63,23 @@ public class MainActivity extends BaseActivity {
                         Fragment oneFragment = getSupportFragmentManager().findFragmentByTag(OneFragment.class.getSimpleName());
                         if (oneFragment == null) {
                             oneFragment = OneFragment.newInstance();
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.layContentRoot, oneFragment, OneFragment.class.getSimpleName())
+                                    .commit();
                         }
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.layContentRoot, oneFragment, OneFragment.class.getSimpleName())
-                                .commit();
+
                         break;
                     case R.id.menu_2:
                         Fragment twoFragment = getSupportFragmentManager().findFragmentByTag(TwoFragment.class.getSimpleName());
                         if (twoFragment == null) {
                             twoFragment = TwoFragment.newInstance();
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.layContentRoot, twoFragment, TwoFragment.class.getSimpleName())
+                                    .commit();
                         }
-                        getSupportFragmentManager()
-                                .beginTransaction()
-                                .replace(R.id.layContentRoot, twoFragment, TwoFragment.class.getSimpleName())
-                                .commit();
+
                         break;
                 }
                 drawer.closeDrawer(Gravity.LEFT);

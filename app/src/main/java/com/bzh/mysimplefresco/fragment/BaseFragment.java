@@ -33,7 +33,7 @@ public abstract class BaseFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof Activity && (Activity) context instanceof BaseActivity) {
+        if (context instanceof Activity && context instanceof BaseActivity) {
             ((BaseActivity) context).addFragment(toString(), this);
         }
 
@@ -79,12 +79,12 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    void requestData() {
+    public void requestData() {
 
 
     }
 
-    abstract int inflateContentView();
+    public abstract int inflateContentView();
 
     public ViewGroup getRootView() {
         return rootView;

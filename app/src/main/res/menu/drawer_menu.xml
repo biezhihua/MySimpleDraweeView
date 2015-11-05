@@ -7,7 +7,7 @@
         <item
             android:id="@+id/menu_2"
             android:icon="@mipmap/ic_global_menu_direct"
-            android:title="Instagram Direct" />
+            android:title="Fresco的aspect" />
         <item
             android:id="@+id/menu_3"
             android:icon="@mipmap/ic_global_menu_news"

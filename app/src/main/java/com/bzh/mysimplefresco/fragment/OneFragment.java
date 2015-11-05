@@ -55,12 +55,12 @@ public class OneFragment extends BaseFragment {
     }
 
     @Override
-    int inflateContentView() {
+    public  int inflateContentView() {
         return R.layout.bzh_ui_one_fragment;
     }
 
     @Override
-    protected void layoutInit(LayoutInflater inflater, Bundle savedInstanceState) {
+    public void layoutInit(LayoutInflater inflater, Bundle savedInstanceState) {
         super.layoutInit(inflater, savedInstanceState);
         ButterKnife.bind(this, getRootView());
 

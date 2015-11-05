@@ -1,6 +1,5 @@
 package com.bzh.mysimplefresco.activity;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -8,16 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bzh.mysimplefresco.R;
-import com.bzh.mysimplefresco.fragment.BaseFragment;
 import com.bzh.mysimplefresco.fragment.OneFragment;
+import com.bzh.mysimplefresco.fragment.TwoFragment;
 import com.bzh.mysimplefresco.lib.MySimpleDraweeView;
 
 import butterknife.Bind;
@@ -45,17 +41,16 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        initFragment();
+        if (savedInstanceState == null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.layContentRoot, OneFragment.newInstance(), OneFragment.class.getSimpleName())
+                    .commit();
+        }
 
         initMenuHeader();
 
         initNavigationView();
-    }
-
-    private void initFragment() {
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.layContentRoot, OneFragment.newInstance(), BaseFragment.FRAGMENT_TAG)
-                .commit();
     }
 
     private void initNavigationView() {
@@ -63,13 +58,28 @@ public class MainActivity extends BaseActivity {
             @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                Fragment fragment = getSupportFragmentManager().findFragmentByTag(BaseFragment.FRAGMENT_TAG);
                 switch (menuItem.getItemId()) {
                     case R.id.menu_1:
-                        if (fragment != null && fragment instanceof OneFragment) {
-                        } else {
-                            getSupportFragmentManager().beginTransaction().replace(R.id.layContentRoot, OneFragment.newInstance(), BaseFragment.FRAGMENT_TAG).commit();
+                        Fragment oneFragment = getSupportFragmentManager().findFragmentByTag(OneFragment.class.getSimpleName());
+                        if (oneFragment == null) {
+                            oneFragment = OneFragment.newInstance();
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.layContentRoot, oneFragment, OneFragment.class.getSimpleName())
+                                    .commit();
                         }
+
+                        break;
+                    case R.id.menu_2:
+                        Fragment twoFragment = getSupportFragmentManager().findFragmentByTag(TwoFragment.class.getSimpleName());
+                        if (twoFragment == null) {
+                            twoFragment = TwoFragment.newInstance();
+                            getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.layContentRoot, twoFragment, TwoFragment.class.getSimpleName())
+                                    .commit();
+                        }
+
                         break;
                 }
                 drawer.closeDrawer(Gravity.LEFT);
@@ -87,7 +97,6 @@ public class MainActivity extends BaseActivity {
         }
         ivMenuUserProfilePhoto.setRoundDraweeViewUrl("http://git.oschina.net/biezhihua/MyResource/raw/master/biezhihua.png");
     }
-
 
 
     @Override

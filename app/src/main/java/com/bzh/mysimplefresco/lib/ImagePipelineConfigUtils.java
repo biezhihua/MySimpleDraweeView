@@ -1,6 +1,7 @@
 package com.bzh.mysimplefresco.lib;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Environment;
 
 import com.facebook.cache.disk.DiskCacheConfig;
@@ -100,7 +101,8 @@ public class ImagePipelineConfigUtils {
                         //            .setProgressiveJpegConfig(progressiveJpegConfig)//渐进式JPEG图
                         //            .setRequestListeners(requestListeners)//图片请求监听
                         //            .setResizeAndRotateEnabledForNetwork(boolean resizeAndRotateEnabledForNetwork)//调整和旋转是否支持网络图片
-                .setSmallImageDiskCacheConfig(diskSmallCacheConfig);//磁盘缓存配置（小图片，可选～三级缓存的小图优化缓存）
+                .setSmallImageDiskCacheConfig(diskSmallCacheConfig)
+                .setBitmapsConfig(Bitmap.Config.ALPHA_8);//磁盘缓存配置（小图片，可选～三级缓存的小图优化缓存）
         return configBuilder.build();
     }
 }

@@ -56,7 +56,7 @@ import uk.co.senab.newphotoview.PhotoViewAttacher.OnViewTapListener;
 public class PhotoView extends ImageView implements IPhotoView {
 
     private PhotoViewAttacher mAttacher;
-    DraweeHolder<GenericDraweeHierarchy> mDraweeHolder;
+    private DraweeHolder<GenericDraweeHierarchy> mDraweeHolder;
     private CloseableReference<CloseableImage> imageReference = null;
     private ScaleType mPendingScaleType;
 

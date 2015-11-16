@@ -29,7 +29,7 @@ import uk.co.senab.photoview.PhotoView;
 
 /**
  * ========================================================== <br>
- * <b>版权</b>：　　　音悦台 版权所有(c) 2015 <br>
+ * <b>版权</b>：　　　别志华 版权所有(c) 2015 <br>
  * <b>作者</b>：　　　别志华 biezhihua@163.com<br>
  * <b>创建日期</b>：　2015/11/16 17:19 <br>
  * <b>描述</b>：　　　<br>
@@ -46,7 +46,6 @@ import uk.co.senab.photoview.PhotoView;
  * ========================================================== <br>
  */
 public class MyPhotoView extends PhotoView {
-
 
     private DraweeHolder<GenericDraweeHierarchy> mDraweeHolder;
 

@@ -1,19 +1,21 @@
 package com.bzh.mysimplefresco.fragment;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.bzh.mysimplefresco.R;
 import com.bzh.mysimplefresco.activity.BaseActivity;
+import com.bzh.mysimplefresco.activity.MyPhotoViewActivity;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * ========================================================== <br>
@@ -56,6 +58,11 @@ public class TwoFragment extends BaseFragment {
             draweeView.setAspectRatio(1F);
             draweeView.setImageURI(Uri.parse("http://img5.duitang.com/uploads/item/201511/04/20151104214718_FfnST.jpeg"));
         }
+    }
+
+    @OnClick(R.id.draweeView)
+    public void onClickDraweeView(View view) {
+        startActivity(new Intent(getContext(), MyPhotoViewActivity.class));
     }
 
     private void initToolbar() {

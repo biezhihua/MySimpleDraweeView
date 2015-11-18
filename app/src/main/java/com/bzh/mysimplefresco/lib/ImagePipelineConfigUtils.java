@@ -14,11 +14,10 @@ import com.facebook.common.util.ByteConstants;
 import com.facebook.imagepipeline.cache.MemoryCacheParams;
 import com.facebook.imagepipeline.core.ImagePipelineConfig;
 import com.facebook.imagepipeline.core.ImagePipelineFactory;
-import com.yinyuetai.starpic.utils.Loger;
 
 /**
  * ========================================================== <br>
- * <b>版权</b>：　　　音悦台 版权所有(c) 2015 <br>
+ * <b>版权</b>：　　　别志华 版权所有(c) 2015 <br>
  * <b>作者</b>：　　　别志华 biezhihua@163.com<br>
  * <b>创建日期</b>：　15-9-23 <br>
  * <b>描述</b>：　　　<br>
@@ -105,7 +104,6 @@ public class ImagePipelineConfigUtils {
             public void trim(MemoryTrimType trimType) {
                 final double suggestedTrimRatio = trimType.getSuggestedTrimRatio();
 
-                Loger.d(String.format("onCreate suggestedTrimRatio : %d", suggestedTrimRatio));
                 if (MemoryTrimType.OnCloseToDalvikHeapLimit.getSuggestedTrimRatio() == suggestedTrimRatio
                         || MemoryTrimType.OnSystemLowMemoryWhileAppInBackground.getSuggestedTrimRatio() == suggestedTrimRatio
                         || MemoryTrimType.OnSystemLowMemoryWhileAppInForeground.getSuggestedTrimRatio() == suggestedTrimRatio

@@ -7,9 +7,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.MenuItem;
-import android.widget.FrameLayout;
+import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.bzh.mysimplefresco.R;
 import com.bzh.mysimplefresco.fragment.OneFragment;
@@ -26,20 +25,18 @@ public class MainActivity extends BaseActivity {
     NavigationView navigationView;
     @Bind(R.id.drawer)
     DrawerLayout drawer;
-    @Bind(R.id.layMainRoot)
-    RelativeLayout layMainRoot;
-    @Bind(R.id.ivMenuUserProfilePhoto)
+
     MySimpleDraweeView ivMenuUserProfilePhoto;
-    @Bind(R.id.vGlobalMenuHeader)
     LinearLayout vGlobalMenuHeader;
-    @Bind(R.id.layContentRoot)
-    FrameLayout layContentRoot;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        final View headerView = navigationView.getHeaderView(0);
+        ivMenuUserProfilePhoto = (MySimpleDraweeView) headerView.findViewById(R.id.ivMenuUserProfilePhoto);
+        vGlobalMenuHeader = (LinearLayout) headerView.findViewById(R.id.vGlobalMenuHeader);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()

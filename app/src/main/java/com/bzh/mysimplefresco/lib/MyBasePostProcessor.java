@@ -8,6 +8,7 @@ import android.graphics.PorterDuff;
 import android.graphics.Rect;
 
 import com.facebook.common.references.CloseableReference;
+import com.facebook.imageformat.ImageFormat;
 import com.facebook.imagepipeline.bitmaps.PlatformBitmapFactory;
 import com.facebook.imagepipeline.request.BasePostprocessor;
 
@@ -45,15 +46,25 @@ public class MyBasePostProcessor extends BasePostprocessor {
         }
 
         // 将PNG图片转换成JPG，并将背景色设置为指定颜色
-        else if (draweeView.getmPictureType().equals(MySimpleDraweeView.PictureType.PNG) && draweeView.isProcessPNG2TargetColor()) {
-            replaceTransparent2TargetColor(sourceBitmap, draweeView.getmTargetColor());
+        else if (ImageFormat.PNG.equals(draweeView.getImageFormat()) && draweeView.isReplacePNGBackground() != -1) {
+            replaceTransparent2TargetColor(sourceBitmap, draweeView.isReplacePNGBackground());
         }
 
         // PNG图片，并且设置了图片最大宽高，如果加载的PNG图片宽高超过指定宽高，并截取指定大小
-        else if (draweeView.getmPictureType().equals(MySimpleDraweeView.PictureType.PNG) && draweeView.getmTargetImageSize() != -1 && (sourceBitmap.getWidth() > draweeView.getmTargetImageSize() || sourceBitmap.getHeight() > draweeView.getmTargetImageSize())) {
-            Bitmap bitmap = Utils.decodeSampledBitmapFromByteArray(bitmap2Bytes(sourceBitmap, 100), draweeView.getmTargetImageSize(), draweeView.getmTargetImageSize());
-            Bitmap region = decodeRegion(bitmap, draweeView.getmTargetImageSize(), draweeView.getmTargetImageSize());
+        else if (ImageFormat.PNG.equals(draweeView.getImageFormat())
+                && draweeView.getTargetImageSize() != -1
+                && (sourceBitmap.getWidth() > draweeView.getTargetImageSize() || sourceBitmap.getHeight() > draweeView.getTargetImageSize())) {
+
+            // 压缩图片
+            Bitmap bitmap = Utils.decodeSampledBitmapFromByteArray(
+                    bitmap2Bytes(sourceBitmap, 100),
+                    draweeView.getTargetImageSize(),
+                    draweeView.getTargetImageSize());
+
+            // 截取图片
+            Bitmap region = decodeRegion(bitmap, draweeView.getTargetImageSize(), draweeView.getTargetImageSize());
             bitmap.recycle();
+
             return super.process(region, bitmapFactory);
         }
         return super.process(sourceBitmap, bitmapFactory);
@@ -65,6 +76,9 @@ public class MyBasePostProcessor extends BasePostprocessor {
         canvas.drawBitmap(sourceBitmap, 0, 0, mPaint);
     }
 
+    /**
+     * 将bitmap转化为数组
+     */
     public static byte[] bitmap2Bytes(Bitmap bitmap, int quality) {
         if (bitmap == null) {
             throw new IllegalArgumentException("bitmap is not null");
@@ -74,6 +88,9 @@ public class MyBasePostProcessor extends BasePostprocessor {
         return baos.toByteArray();
     }
 
+    /**
+     * 截取bitmap指定的宽高
+     */
     public static Bitmap decodeRegion(Bitmap bitmap, int width, int height) {
         return decodeRegion(bitmap2Bytes(bitmap, 100), width, height);
     }

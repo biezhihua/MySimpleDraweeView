@@ -1,7 +1,6 @@
 package com.bzh.mysimplefresco.lib;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -15,6 +14,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 
+import com.bzh.mysimplefresco.R;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -30,24 +30,19 @@ import com.facebook.imagepipeline.image.ImageInfo;
 import com.facebook.imagepipeline.request.ImageRequest;
 import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.facebook.imagepipeline.request.Postprocessor;
-import com.yinyuetai.starpic.R;
-import com.yinyuetai.starpic.StarpicApp;
-import com.yinyuetai.starpic.utils.FileUtil;
 
 import java.io.File;
-import java.util.Random;
 
 
 /**
  * ========================================================== <br>
- * <b>版权</b>：　　　音悦台 版权所有(c) 2015 <br>
+ * <b>版权</b>：　　　别志华 版权所有(c) 2015 <br>
  * <b>作者</b>：　　　别志华 biezhihua@163.com<br>
  * <b>创建日期</b>：　2015/7/12 16:20 <br>
  * <b>版本</b>：　   V5.0 <br>
  * <b>修订历史</b>：　<br>
  * ========================================================== <br>
  */
-@SuppressWarnings("deprecation")
 public class MySimpleDraweeView extends SimpleDraweeView {
 
     // 默认的宽高比例
@@ -90,25 +85,14 @@ public class MySimpleDraweeView extends SimpleDraweeView {
     public MySimpleDraweeView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs);
         init(context);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MySimpleDraweeView, defStyle, 0);
-        Drawable tempDrawable = a.getDrawable(R.styleable.MySimpleDraweeView_default_icon_id);
-        if (tempDrawable != null) {
-            setPlaceholderDrawable(tempDrawable);
-            setDraweeViewResId(R.drawable.home_page_default_icon);
-        }
-        a.recycle();
     }
 
     public void init(Context context) {
         if (!isInEditMode()) {
             this.mContext = context;
-            if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mPlaceholderDrawable = this.mContext.getDrawable(StarpicApp.colors[new Random().nextInt(10)]);
-            } else {
-                mPlaceholderDrawable = this.mContext.getResources().getDrawable(StarpicApp.colors[new Random().nextInt(10)]);
-            }
+            mPlaceholderDrawable = new ColorDrawable(Color.GRAY);
         }
-        mPostProcessor = new DefaultBasePostProcessor(this);
+        mPostProcessor = new MyBasePostProcessor(this);
         mImageType = ImageRequest.ImageType.DEFAULT;
         mControllerListener = new DefaultBaseControllerListener();
         mDraweeViewScaleType = ScalingUtils.ScaleType.CENTER_CROP;
@@ -121,9 +105,9 @@ public class MySimpleDraweeView extends SimpleDraweeView {
     public MySimpleDraweeView setGifChartIdentify(final boolean isShowGifIdentify) {
         if (isShowGifIdentify) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mGifChartOverlay = mContext.getDrawable(R.drawable.identify_gif);
+                mGifChartOverlay = mContext.getDrawable(R.mipmap.identify_gif);
             } else {
-                mGifChartOverlay = mContext.getResources().getDrawable(R.drawable.identify_gif);
+                mGifChartOverlay = mContext.getResources().getDrawable(R.mipmap.identify_gif);
             }
         } else {
             mGifChartOverlay = null;
@@ -143,10 +127,10 @@ public class MySimpleDraweeView extends SimpleDraweeView {
      */
     public MySimpleDraweeView setNumberChartIdentify(int number) {
         if (number > 1) {
-            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.identify_number);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.identify_number);
             byte[] chunk = bitmap.getNinePatchChunk();
             if (NinePatch.isNinePatchChunk(chunk)) {
-                mNumberChartOverlay = new DefaultNinePatchDrawable(getResources(), bitmap, chunk, NinePatchChunk.deserialize(chunk).mPaddings, null, number + "");
+                mNumberChartOverlay = new MyNinePatchDrawable(getResources(), bitmap, chunk, NinePatchChunk.deserialize(chunk).mPaddings, null, number + "");
             } else {
                 mNumberChartOverlay = null;
             }
@@ -357,9 +341,9 @@ public class MySimpleDraweeView extends SimpleDraweeView {
 
         Drawable defaultIcon;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            defaultIcon = mContext.getDrawable(R.drawable.round_default_icon);
+            defaultIcon = mContext.getDrawable(R.mipmap.round_default_icon);
         } else {
-            defaultIcon = mContext.getResources().getDrawable(R.drawable.round_default_icon);
+            defaultIcon = mContext.getResources().getDrawable(R.mipmap.round_default_icon);
         }
 
         final GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(mContext.getResources())
@@ -388,7 +372,7 @@ public class MySimpleDraweeView extends SimpleDraweeView {
                 if (uri.getScheme().toLowerCase().contains("file") && isCutGif()) {
                     // 针对本地Gif预览时做特殊处理，裁剪出第一帧并显示
                     File file = new File(uri.getPath());
-                    File cutFile = FileUtil.getCopyFile(file);
+                    File cutFile = Utils.getCopyFile(file);
                     Uri newUri = new Uri.Builder().scheme("file").path(cutFile.getAbsolutePath()).build();
                     return ImageRequestBuilder
                             .newBuilderWithSource(newUri)
@@ -505,12 +489,12 @@ public class MySimpleDraweeView extends SimpleDraweeView {
     /**
      * 是否设置长图标识
      */
-    private MySimpleDraweeView setLongChartIdentify(final boolean isLongChartIdentify) {
+    public MySimpleDraweeView setLongChartIdentify(final boolean isLongChartIdentify) {
         if (isLongChartIdentify) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                mLongChartOverlay = mContext.getDrawable(R.drawable.identify_long);
+                mLongChartOverlay = mContext.getDrawable(R.mipmap.identify_long);
             } else {
-                mLongChartOverlay = mContext.getResources().getDrawable(R.drawable.identify_long);
+                mLongChartOverlay = mContext.getResources().getDrawable(R.mipmap.identify_long);
             }
         } else {
             mLongChartOverlay = null;

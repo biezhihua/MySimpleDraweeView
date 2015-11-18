@@ -25,8 +25,6 @@ import java.nio.charset.IllegalCharsetNameException;
  */
 public abstract class BaseFragment extends Fragment {
 
-    public static final String FRAGMENT_TAG = "FRAGMENT_TAG";
-
     private ViewGroup rootView;
 
     @Override
@@ -80,7 +78,6 @@ public abstract class BaseFragment extends Fragment {
     }
 
     public void requestData() {
-
 
     }
 

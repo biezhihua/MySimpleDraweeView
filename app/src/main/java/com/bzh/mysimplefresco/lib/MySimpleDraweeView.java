@@ -521,4 +521,5 @@ public class MySimpleDraweeView extends SimpleDraweeView {
     public enum PictureType {
         JPEG, JPG, PNG, GIF
     }
+
 }

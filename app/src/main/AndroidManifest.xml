@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+
         android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -20,7 +21,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.MyPhotoViewActivity"/>
+        <activity
+            android:name=".activity.MyPhotoViewActivity"/>
     </application>
 
 </manifest>

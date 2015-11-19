@@ -1,10 +1,16 @@
 package com.bzh.mysimplefresco.activity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 
 import com.bzh.mysimplefresco.MyPhotoView;
 import com.bzh.mysimplefresco.R;
 import com.facebook.imagepipeline.common.ResizeOptions;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -33,7 +39,17 @@ public class MyPhotoViewActivity extends BaseActivity {
         final int widthPixels = getResources().getDisplayMetrics().widthPixels;
         final int heightPixels = getResources().getDisplayMetrics().heightPixels;
 
-        myPhotoView.setImageUri("http://img5.duitang.com/uploads/item/201511/04/20151104214718_FfnST.jpeg"
-                , new ResizeOptions(widthPixels, heightPixels));
+        try {
+            InputStream open = getAssets().open("aa.jpg");
+            Bitmap bitmap = BitmapFactory.decodeStream(open);
+//            myPhotoView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+            myPhotoView.setImageBitmap(bitmap);
+            myPhotoView.setImageUri("http://img5.duitang.com/uploads/item/201511/04/20151104214718_FfnST.jpeg"
+                    , null);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
     }
 }
